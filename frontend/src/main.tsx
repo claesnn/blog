@@ -5,7 +5,12 @@ import App from "./App.tsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import About from "./routes/about.tsx";
 import Blog from "./routes/blog.tsx";
-import { loadBlog, loadBlogs, loadComments } from "./loaders/blogs.ts";
+import {
+  loadBlog,
+  loadBlogs,
+  loadComments,
+  postComment,
+} from "./loaders/blogs.ts";
 import BlogDetail from "./routes/blog-detail.tsx";
 
 const router = createBrowserRouter([
@@ -29,6 +34,10 @@ const router = createBrowserRouter([
       const blog = await loadBlog(params.id!);
       const comments = loadComments(params.id!);
       return { blog, comments };
+    },
+    action: async ({ params, request }) => {
+      const formData = await request.formData();
+      return await postComment(params.id!, formData.get("comment") as string);
     },
   },
 ]);

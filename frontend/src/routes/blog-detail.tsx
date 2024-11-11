@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { Await, useLoaderData } from "react-router-dom";
+import { Await, Form, useLoaderData } from "react-router-dom";
 
 export default function BlogDetail() {
   const { blog, comments } = useLoaderData();
@@ -22,6 +22,10 @@ export default function BlogDetail() {
           </Await>
         </Suspense>
       </ul>
+      <Form method="post">
+        <input name="comment" />
+        <button type="submit">Submit</button>
+      </Form>
     </div>
   );
 }
