@@ -1,11 +1,8 @@
 """Core views"""
 
-import json
-
 from django.contrib.auth import authenticate, login
 from django.http import JsonResponse
 from django.middleware.csrf import get_token
-from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import ensure_csrf_cookie
 from rest_framework import viewsets
 from rest_framework.decorators import action, api_view
