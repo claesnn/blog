@@ -6,17 +6,26 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import About from "./routes/about.tsx";
 import Blog from "./routes/blog.tsx";
 import {
+  checkLogin,
+  checkPost,
+  getUser,
   loadBlog,
   loadBlogs,
   loadComments,
   postComment,
 } from "./loaders/blogs.ts";
 import BlogDetail from "./routes/blog-detail.tsx";
+import Login from "./routes/login.tsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
+    loader: getUser,
+  },
+  {
+    path: "/login",
+    element: <Login />,
   },
   {
     path: "/about",
@@ -37,6 +46,8 @@ const router = createBrowserRouter([
     },
     action: async ({ params, request }) => {
       const formData = await request.formData();
+      await checkLogin();
+      await checkPost();
       return await postComment(params.id!, formData.get("comment") as string);
     },
   },
